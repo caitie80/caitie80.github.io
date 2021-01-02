@@ -1,0 +1,170 @@
+<html>
+<style>
+    tr,
+    td,
+    th {
+        border: 1px solid black;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+</style>
+<script>
+
+    function calculate() {
+        //ALL of this logic is for calculating banquets per confident
+        let mytable = document.getElementById("data")
+        while (mytable.rows.length > 1) {
+            mytable.deleteRow(1);
+        }
+
+        let noByConf = new Array(5);
+
+
+        for (var i = 0; i < noByConf.length; i++) {
+            noByConf[i] = new Array(3);
+        }
+
+
+        let invites = parseInt(document.getElementById("inv").value);
+
+        let bigBanquets = Math.floor(invites / 20)
+        let bigBanquets2 = bigBanquets
+
+        let littleBanquets = Math.floor((invites - (bigBanquets * 20)) / 5)
+        let littleBanquet2 = littleBanquets
+
+        let ingotsNeeded = (littleBanquets * 100) + (bigBanquets * 500)
+        document.getElementById("ingots").innerHTML = "<b>Ingots needed:</b> " + ingotsNeeded
+
+
+
+
+        //console.log("Log: " , littleBanquets);
+
+        for (var i = 0; i < noByConf.length; i++) {
+            if (bigBanquets2 >= 4) {
+                noByConf[i][0] = 4
+                bigBanquets2 -= 4
+            }
+            else {
+                noByConf[i][0] = bigBanquets2
+                bigBanquets2 = 0;
+            }
+            //console.log("index: " , i , " big: " , noByConf[i][0])
+        }
+
+        for (var i = 0; i < noByConf.length; i++) {
+            if (noByConf[i][0] < 4) {
+                let left = (4 - noByConf[i][0])
+
+                if (littleBanquet2 >= left) {
+                    noByConf[i][1] = left
+                    littleBanquet2 -= left
+                }
+                else {
+                    noByConf[i][1] = littleBanquet2
+                    littleBanquet2 = 0
+                }
+            }
+            else {
+                noByConf[i][1] = 0
+            }
+
+            //console.log("index: " , i , " little: " , noByConf[i][1])
+        }
+
+
+        for (var i = 0; i < noByConf.length; i++) {
+            //let message = "Confidant: " + i + " big: " + noByConf[i][0] + " little: " + noByConf[i][1] + "<br>"
+            //console.log(message)
+
+            //document.getElementById("data").innerHTML +=message
+            let newRow = mytable.insertRow();
+            let cell1 = newRow.insertCell()
+            let cell2 = newRow.insertCell()
+            let cell3 = newRow.insertCell()
+
+            let no = i + 1
+
+            let cell1text = document.createTextNode(no)
+            cell1.appendChild(cell1text)
+
+            let cell2text = document.createTextNode(noByConf[i][0])
+            cell2.appendChild(cell2text);
+
+            let cell3text = document.createTextNode(noByConf[i][1])
+            cell3.appendChild(cell3text)
+        }
+        //banquets per confident logic stops HERE
+
+        //starting points calulation
+        let points = 0;
+
+        noByConf[0][2] = Math.floor(parseInt(document.getElementById("first").value) / 4)
+
+        noByConf[1][2] = Math.floor(parseInt(document.getElementById("second").value))
+        noByConf[2][2] = Math.floor(parseInt(document.getElementById("third").value))
+        noByConf[3][2] = Math.floor(parseInt(document.getElementById("fourth").value))
+        noByConf[4][2] = Math.floor(parseInt(document.getElementById("fifth").value))
+
+
+        for (var i = 0; i < noByConf.length; i++) {
+            //let confPoints = (5000+((5000*noByConf[i][2])/100)*noByConf[i][0])
+            let confPoints = (5000 + ((5000 * noByConf[i][2]) / 100)) * noByConf[i][0]
+
+            confPoints += (1000 + ((1000 * noByConf[i][2]) / 100)) * noByConf[i][1]
+            points += confPoints
+        }
+
+        
+        let dailyAttend = Math.floor((180 + ((180*noByConf[0][2])/100))*4);
+        dailyAttend += Math.floor((180 + ((180*noByConf[1][2])/100))*4)
+
+        document.getElementById("points").innerHTML = "<b>Points gained from hosting:</b> " + points + 
+        "<br><b>Points gained by free attending:</b> " + dailyAttend + "<br><b>Total points: </b>" + (points+dailyAttend)
+
+
+
+    }
+</script>
+
+<body>
+    <div id="instructions">
+        <p><b>Instructions</b></p>
+        <p>
+            Put the number of invitations you have in the No. of Invites box. Put the intimacy with your top 5
+            confidents in order of high to low in the following boxes.
+        </p>
+
+    </div>
+    <form>
+        No. of Invites: <input id="inv"></input> <br>
+        1st confidant: <input id="first"></input> <br>
+        2nd confidant: <input id="second"></input> <br>
+        3rd confidant: <input id="third"></input> <br>
+        4th confidant: <input id="fourth"></input> <br>
+        5th confidant: <input id="fifth"></input> <br>
+        <input type="button" value="Calculate" onclick="calculate()" />
+    </form>
+
+    <table id="data">
+        <tr>
+            <th>Confidant</th>
+            <th>Big Banquets</th>
+            <th>Small Banquets</th>
+        </tr>
+
+    </table>
+
+    <div id="ingots">
+
+    </div>
+    <div id="points"></div>
+
+    
+
+</body>
+
+</html>
