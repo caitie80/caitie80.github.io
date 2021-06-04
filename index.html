@@ -13,6 +13,9 @@
 <script>
 
     function calculate() {
+
+        var days = 5;
+
         //ALL of this logic is for calculating banquets per confident
         let mytable = document.getElementById("data")
         while (mytable.rows.length > 1) {
@@ -44,9 +47,9 @@
         //console.log("Log: " , littleBanquets);
 
         for (var i = 0; i < noByConf.length; i++) {
-            if (bigBanquets2 >= 4) {
-                noByConf[i][0] = 4
-                bigBanquets2 -= 4
+            if (bigBanquets2 >= days) {
+                noByConf[i][0] = days
+                bigBanquets2 -= days
             }
             else {
                 noByConf[i][0] = bigBanquets2
@@ -56,8 +59,8 @@
         }
 
         for (var i = 0; i < noByConf.length; i++) {
-            if (noByConf[i][0] < 4) {
-                let left = (4 - noByConf[i][0])
+            if (noByConf[i][0] < days) {
+                let left = (days - noByConf[i][0])
 
                 if (littleBanquet2 >= left) {
                     noByConf[i][1] = left
@@ -103,11 +106,17 @@
         let points = 0;
 
         noByConf[0][2] = Math.floor(parseInt(document.getElementById("first").value) / 4)
+        
+        noByConf[1][2] = Math.floor(parseInt(document.getElementById("second").value) / 4)
+        noByConf[2][2] = Math.floor(parseInt(document.getElementById("third").value) / 4)
+        noByConf[3][2] = Math.floor(parseInt(document.getElementById("fourth").value) / 4)
+        noByConf[4][2] = Math.floor(parseInt(document.getElementById("fifth").value) / 4)
 
-        noByConf[1][2] = Math.floor(parseInt(document.getElementById("second").value))
-        noByConf[2][2] = Math.floor(parseInt(document.getElementById("third").value))
-        noByConf[3][2] = Math.floor(parseInt(document.getElementById("fourth").value))
-        noByConf[4][2] = Math.floor(parseInt(document.getElementById("fifth").value))
+        for (var i = 0; i < noByConf.length; i++) {
+            if(noByConf[i][2] > 100)
+                noByConf[i][2] = 100
+        }
+
 
 
         for (var i = 0; i < noByConf.length; i++) {
@@ -119,11 +128,10 @@
         }
 
         
-        let dailyAttend = Math.floor((180 + ((180*noByConf[0][2])/100))*4);
-        dailyAttend += Math.floor((180 + ((180*noByConf[1][2])/100))*4)
+        let dailyAttend = Math.floor((220 + ((220*noByConf[0][2])/100))*4);
+        dailyAttend += Math.floor((220 + ((220*noByConf[1][2])/100))*4)
 
-        document.getElementById("points").innerHTML = "<b>Points gained from hosting:</b> " + points + 
-        "<br><b>Points gained by free attending:</b> " + dailyAttend + "<br><b>Total points: </b>" + (points+dailyAttend)
+        document.getElementById("points").innerHTML = "<b>Points gained from hosting:</b> " + points
 
 
 
