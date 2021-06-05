@@ -1,15 +1,7 @@
 <html>
-<style>
-    tr,
-    td,
-    th {
-        border: 1px solid black;
-    }
 
-    table {
-        border-collapse: collapse;
-    }
-</style>
+<link rel="stylesheet" href="style.css">
+
 <script>
 
     function calculate() {
@@ -100,24 +92,22 @@
             let cell3text = document.createTextNode(noByConf[i][1])
             cell3.appendChild(cell3text)
         }
+
         //banquets per confident logic stops HERE
 
         //starting points calulation
         let points = 0;
 
         noByConf[0][2] = Math.floor(parseInt(document.getElementById("first").value) / 4)
-        
         noByConf[1][2] = Math.floor(parseInt(document.getElementById("second").value) / 4)
         noByConf[2][2] = Math.floor(parseInt(document.getElementById("third").value) / 4)
         noByConf[3][2] = Math.floor(parseInt(document.getElementById("fourth").value) / 4)
         noByConf[4][2] = Math.floor(parseInt(document.getElementById("fifth").value) / 4)
 
         for (var i = 0; i < noByConf.length; i++) {
-            if(noByConf[i][2] > 100)
+            if (noByConf[i][2] > 100)
                 noByConf[i][2] = 100
         }
-
-
 
         for (var i = 0; i < noByConf.length; i++) {
             //let confPoints = (5000+((5000*noByConf[i][2])/100)*noByConf[i][0])
@@ -127,52 +117,73 @@
             points += confPoints
         }
 
-        
-        let dailyAttend = Math.floor((220 + ((220*noByConf[0][2])/100))*4);
-        dailyAttend += Math.floor((220 + ((220*noByConf[1][2])/100))*4)
+        let dailyAttend = Math.floor((220 + ((220 * noByConf[0][2]) / 100)) * 4);
+        dailyAttend += Math.floor((220 + ((220 * noByConf[1][2]) / 100)) * 4)
 
         document.getElementById("points").innerHTML = "<b>Points gained from hosting:</b> " + points
-
-
-
     }
 </script>
 
 <body>
-    <div id="instructions">
-        <p><b>Instructions</b></p>
-        <p>
-            Put the number of invitations you have in the No. of Invites box. Put the intimacy with your top 5
-            confidents in order of high to low in the following boxes.
-        </p>
+    <div id="containerdiv">
+        <image src="lp.png"  style="padding:0;display:block;margin-left: auto;margin-right: auto;"></image>
+        <div id="instructions">
+            <h1>Instructions</h1>
+            <p style="text-align:center">
+                Put the number of invitations you have in the No. of Invites box. Put the intimacy with your top 5
+                confidents in order of high to low in the following boxes.
+            </p>
+        </div>
 
+        <form id="form">
+            <table class="formtable">
+                <tr style="margin-top:200em;">
+                    <td colspan="2" style="width:100%;"><image src="invitation.png"  width="50" height="50" style="padding:0;display:block;margin-left: auto;margin-right: auto;"></image></td>
+                </tr>
+                <tr>
+                    <td style="margin-left:0"> No. of Invites: </td>
+                    <td><input id="inv"></input> </td>
+                </tr>
+                <tr >
+                    <td colspan="2" style="width:100%;"><image src="hearts.png"  width="50" height="50" style="padding:0;display:block;margin-left: auto;margin-right: auto;margin-top:10%;"></image></td>
+                </tr>
+                <tr>
+                    <td> 1<sup>st</sup> confidant: </td>
+                    <td><input id="first"></input> </td>
+                </tr>
+                <tr>
+                    <td>2<sup>nd</sup> confidant:</td>
+                    <td><input id="second"></input> </input> </td>
+                </tr>
+                <tr>
+                    <td> 3<sup>rd</sup> confidant:</td>
+                    <td><input id="third"></input> </td>
+                </tr>
+                <tr>
+                    <td> 4<sup>th </sup>confidant:</td>
+                    <td><input id="fourth"></input> </td>
+                </tr>
+                <tr>
+                    <td>5<sup>th</sup> confidant:</td>
+                    <td><input id="fifth"></input></input> </td>
+                </tr>
+            </table>
+            <input class="calculateButton" type="button" value="Calculate" onclick="calculate()" style="background-color:#f14ebd" />
+        </form>
+
+        <table id="data">
+            <tr>
+                <th>Confidant</th>
+                <th>Big Banquets</th>
+                <th>Small Banquets</th>
+            </tr>
+        </table>
+
+        <div id="calculateInfo">
+            <div id="ingots" style="text-align: center;margin:auto;padding-bottom:1%;"></div>
+            <div id="points"></div>
+        </div>
     </div>
-    <form>
-        No. of Invites: <input id="inv"></input> <br>
-        1st confidant: <input id="first"></input> <br>
-        2nd confidant: <input id="second"></input> <br>
-        3rd confidant: <input id="third"></input> <br>
-        4th confidant: <input id="fourth"></input> <br>
-        5th confidant: <input id="fifth"></input> <br>
-        <input type="button" value="Calculate" onclick="calculate()" />
-    </form>
-
-    <table id="data">
-        <tr>
-            <th>Confidant</th>
-            <th>Big Banquets</th>
-            <th>Small Banquets</th>
-        </tr>
-
-    </table>
-
-    <div id="ingots">
-
-    </div>
-    <div id="points"></div>
-
-    
-
 </body>
 
 </html>
