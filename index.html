@@ -98,15 +98,15 @@
         //starting points calulation
         let points = 0;
 
-        noByConf[0][2] = Math.floor(parseInt(document.getElementById("first").value) / 4)
-        noByConf[1][2] = Math.floor(parseInt(document.getElementById("second").value) / 4)
-        noByConf[2][2] = Math.floor(parseInt(document.getElementById("third").value) / 4)
-        noByConf[3][2] = Math.floor(parseInt(document.getElementById("fourth").value) / 4)
-        noByConf[4][2] = Math.floor(parseInt(document.getElementById("fifth").value) / 4)
+        noByConf[0][2] = Math.floor(parseInt(document.getElementById("first").value))
+        noByConf[1][2] = Math.floor(parseInt(document.getElementById("second").value))
+        noByConf[2][2] = Math.floor(parseInt(document.getElementById("third").value))
+        noByConf[3][2] = Math.floor(parseInt(document.getElementById("fourth").value))
+        noByConf[4][2] = Math.floor(parseInt(document.getElementById("fifth").value))
 
         for (var i = 0; i < noByConf.length; i++) {
-            if (noByConf[i][2] > 100)
-                noByConf[i][2] = 100
+            if (noByConf[i][2] > 150)
+                noByConf[i][2] = 150
         }
 
         for (var i = 0; i < noByConf.length; i++) {
@@ -130,7 +130,7 @@
         <div id="instructions">
             <h1>Instructions</h1>
             <p style="text-align:center">
-                Put the number of invitations you have in the No. of Invites box. Put the intimacy with your top 5
+                Put the number of invitations you have in the No. of Invites box. Put the banquet bonus (found on the "Open Banquet" Screen) with your top 5
                 confidents in order of high to low in the following boxes.
             </p>
         </div>
